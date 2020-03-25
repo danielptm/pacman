@@ -41,6 +41,8 @@ public class Start extends Application implements CommandLineRunner {
         gc.fillText( "Hello, World!", 60, 50 );
         gc.strokeText( "Hello, World!", 60, 50 );
 
+
+
         final long startNanoTime = System.nanoTime();
 
         new AnimationTimer()
