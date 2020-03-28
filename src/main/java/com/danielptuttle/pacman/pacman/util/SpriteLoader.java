@@ -1,5 +1,8 @@
 package com.danielptuttle.pacman.pacman.util;
 
+import com.danielptuttle.pacman.pacman.characters.*;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -7,6 +10,10 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SpriteLoader {
 
@@ -24,7 +31,7 @@ public class SpriteLoader {
      * @return
      * @throws IOException
      */
-    public BufferedImage[][] buildImageArray() throws IOException {
+    public BufferedImage[][] loadSpritesFromSheet() throws IOException {
         BufferedImage[][] subImages = new BufferedImage[20][20];
             BufferedImage sprite = ImageIO.read(new File((imageUrl)));
             int startX = 0;
@@ -42,5 +49,32 @@ public class SpriteLoader {
                 startX += subImageWidth;
             }
         return subImages;
+    }
+
+    public Map<GuyType, List<? extends Guy>> loadGuys(BufferedImage[][] spriteImages) {
+        Map<GuyType, List<? extends Guy>> guyMap = new HashMap<>();
+        List<Ghost>  ghostList = new ArrayList<>();
+        List<Pacman> pacmanList = new ArrayList<>();
+        for(Enum color: Color.values()) {
+            Image[] ghostImages = new Image[10];
+            for (int i = 0; i < 10; i ++) {
+                BufferedImage image = spriteImages[color.ordinal()][i];
+                ghostImages[i] = SwingFXUtils.toFXImage(image, null);
+            }
+            Ghost ghost = new Ghost(color, ghostImages);
+            ghostList.add(ghost);
+        }
+        guyMap.put(GuyType.GHOST, ghostList);
+
+        Image[] pacmanImages = new Image[12];
+        for (int i = 0; i < 12; i++ ) {
+            BufferedImage pacman = spriteImages[17][i];
+            Image pacmanFx = SwingFXUtils.toFXImage(pacman, null);
+            pacmanImages[i] = pacmanFx;
+        }
+        Pacman pacman = new Pacman(pacmanImages);
+        pacmanList.add(pacman);
+        guyMap.put(GuyType.PACMAN, pacmanList);
+        return guyMap;
     }
 }
