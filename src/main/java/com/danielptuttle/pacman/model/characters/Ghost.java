@@ -1,4 +1,4 @@
-package com.danielptuttle.pacman.pacman.characters;
+package com.danielptuttle.pacman.model.characters;
 
 import javafx.scene.image.Image;
 

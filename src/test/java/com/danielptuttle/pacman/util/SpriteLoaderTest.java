@@ -1,7 +1,7 @@
-package com.danielptuttle.pacman.pacman.util;
+package com.danielptuttle.pacman.util;
 
-import com.danielptuttle.pacman.pacman.characters.Guy;
-import com.danielptuttle.pacman.pacman.characters.GuyType;
+import com.danielptuttle.pacman.model.characters.Guy;
+import com.danielptuttle.pacman.model.characters.GuyType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

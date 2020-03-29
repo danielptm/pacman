@@ -1,4 +1,4 @@
-package com.danielptuttle.pacman.pacman;
+package com.danielptuttle.pacman;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

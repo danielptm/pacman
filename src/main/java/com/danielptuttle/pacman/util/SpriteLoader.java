@@ -1,6 +1,6 @@
-package com.danielptuttle.pacman.pacman.util;
+package com.danielptuttle.pacman.util;
 
-import com.danielptuttle.pacman.pacman.characters.*;
+import com.danielptuttle.pacman.model.characters.*;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import org.apache.logging.log4j.LogManager;

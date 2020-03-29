@@ -1,7 +1,7 @@
-package com.danielptuttle.pacman.pacman;
+package com.danielptuttle.pacman;
 
-import com.danielptuttle.pacman.pacman.characters.Guy;
-import com.danielptuttle.pacman.pacman.characters.GuyType;
+import com.danielptuttle.pacman.model.characters.Guy;
+import com.danielptuttle.pacman.model.characters.GuyType;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 

@@ -1,13 +1,13 @@
-package com.danielptuttle.pacman.pacman;
+package com.danielptuttle.pacman;
 
-import com.danielptuttle.pacman.pacman.characters.Guy;
-import com.danielptuttle.pacman.pacman.characters.GuyType;
-import com.danielptuttle.pacman.pacman.util.SpriteLoader;
+import com.danielptuttle.pacman.model.characters.Guy;
+import com.danielptuttle.pacman.model.characters.GuyType;
+import com.danielptuttle.pacman.util.SpriteLoader;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -26,12 +26,19 @@ public class Context extends Application implements CommandLineRunner {
     @Override
     public void start(Stage theStage) throws Exception {
         theStage.setTitle( "Pacman by 🐢" );
-        Group root = new Group();
+        Pane root = new Pane();
+
+        String background = getClass().getClassLoader().getResource("background2.jpg").getPath();
+        String formattedBackground = "file://"+background;
+        String formattedStyle = String.format("-fx-background-image: url('%s');-fx-background-size: cover;", formattedBackground);
+
+        root.setStyle(formattedStyle);
         Scene theScene = new Scene( root );
         theStage.setScene(theScene);
-        Canvas canvas = new Canvas( 1000, 800 );
-        root.getChildren().add(canvas);
+        Canvas canvas = new Canvas( 1300, 800 );
         GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        root.getChildren().add(canvas);
         String fileName = getClass().getClassLoader().getResource("images.png").getPath();
         SpriteLoader spriteLoader = new SpriteLoader(fileName);
         BufferedImage[][] images = spriteLoader.loadSpritesFromSheet();
