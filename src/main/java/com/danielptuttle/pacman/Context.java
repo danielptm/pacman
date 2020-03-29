@@ -2,18 +2,20 @@ package com.danielptuttle.pacman;
 
 import com.danielptuttle.pacman.model.characters.Guy;
 import com.danielptuttle.pacman.model.characters.GuyType;
+import com.danielptuttle.pacman.model.characters.Pacman;
 import com.danielptuttle.pacman.model.map.MapContext;
-import com.danielptuttle.pacman.util.SpriteLoader;
+import com.danielptuttle.pacman.model.characters.GameCharacters;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +29,12 @@ public class Context extends Application implements CommandLineRunner {
     @Override
     public void start(Stage theStage) throws Exception {
         theStage.setTitle( "Pacman by 🐢" );
+
+        MapContext mapContext = MapContext.get();
+        Canvas canvas = new Canvas( mapContext.getWidth(), mapContext.getHeight() );
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+
         Pane root = new Pane();
 
         String background = getClass().getClassLoader().getResource("background2.jpg").getPath();
@@ -36,22 +44,39 @@ public class Context extends Application implements CommandLineRunner {
         root.setPrefWidth(1300);
         root.setPrefHeight(800);
 
-        Scene theScene = new Scene( root );
-        theStage.setScene(theScene);
+        Map<GuyType, List<? extends Guy>> guyMap = GameCharacters.get();
+        Scene theScene = new Scene(root);
+        setKeyBoardListener(theScene, (Pacman) guyMap.get(GuyType.PACMAN).get(0));
 
-        MapContext mapContext = MapContext.get();
-        Canvas canvas = new Canvas( mapContext.getWidth(), mapContext.getHeight() );
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        theStage.setScene(theScene);
 
         root.getChildren().add(canvas);
 
-        String fileName = getClass().getClassLoader().getResource("images.png").getPath();
-        SpriteLoader spriteLoader = new SpriteLoader(fileName);
-        BufferedImage[][] images = spriteLoader.loadSpritesFromSheet();
-        Map<GuyType, List<? extends Guy>> guyMap = spriteLoader.loadGuys(images);
         PacmanTimer pacmanTimer = new PacmanTimer(gc, guyMap);
         pacmanTimer.start();
-
         theStage.show();
+
+    }
+
+    private void setKeyBoardListener(Scene scene, Pacman pacman) {
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                switch (event.getCode()) {
+                    case UP:
+                        pacman.setPositionY(pacman.getPositionY() - 5);
+                        break;
+                    case DOWN:
+                        pacman.setPositionY(pacman.getPositionY() + 5);
+                        break;
+                    case LEFT:
+                        pacman.setPositionX(pacman.getPositionX() - 5);
+                        break;
+                    case RIGHT:
+                        pacman.setPositionX(pacman.getPositionX() + 5);
+                        break;
+                }
+            }
+        });
     }
 }

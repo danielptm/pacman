@@ -1,6 +1,5 @@
-package com.danielptuttle.pacman.util;
+package com.danielptuttle.pacman.model.characters;
 
-import com.danielptuttle.pacman.model.characters.*;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import org.apache.logging.log4j.LogManager;
@@ -15,15 +14,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SpriteLoader {
+public class GameCharacters {
 
-    private static final Logger LOGGER = LogManager.getLogger(SpriteLoader.class);
+    private static final Logger LOGGER = LogManager.getLogger(GameCharacters.class);
 
-    private String imageUrl;
+    private static final String imageUrl = "images.png";
 
-    public SpriteLoader (String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+    private static Map<GuyType, List<? extends Guy>> guyMap;
+
+    private GameCharacters () {}
 
     /**
      * Builds a double array of Buffered Images containing all elements of the sprite sheet. Each sprite is approximnately
@@ -31,27 +30,28 @@ public class SpriteLoader {
      * @return
      * @throws IOException
      */
-    public BufferedImage[][] loadSpritesFromSheet() throws IOException {
+    private static BufferedImage[][] loadSpritesFromSheet() throws IOException {
         BufferedImage[][] subImages = new BufferedImage[20][20];
-            BufferedImage sprite = ImageIO.read(new File((imageUrl)));
-            int startX = 0;
-            int startY = 0;
-            int subImageWidth = 50;
-            int subImageHeight = 50;
+        String fileName = GameCharacters.class.getClassLoader().getResource("images.png").getPath();
+        BufferedImage sprite = ImageIO.read(new File((fileName)));
+        int startX = 0;
+        int startY = 0;
+        int subImageWidth = 50;
+        int subImageHeight = 50;
 
-            for (int i = 0; i < 20; i++) {
-                startY = 0;
-                for (int j = 0; j < 20; j++) {
-                    BufferedImage subImage = sprite.getSubimage(startX, startY, subImageWidth, subImageHeight);
-                    subImages[i][j] = subImage;
-                    startY += subImageHeight;
-                }
-                startX += subImageWidth;
+        for (int i = 0; i < 20; i++) {
+            startY = 0;
+            for (int j = 0; j < 20; j++) {
+                BufferedImage subImage = sprite.getSubimage(startX, startY, subImageWidth, subImageHeight);
+                subImages[i][j] = subImage;
+                startY += subImageHeight;
             }
-        return subImages;
+            startX += subImageWidth;
+        }
+    return subImages;
     }
 
-    public Map<GuyType, List<? extends Guy>> loadGuys(BufferedImage[][] spriteImages) {
+    private static Map<GuyType, List<? extends Guy>> loadGuys(BufferedImage[][] spriteImages) {
         Map<GuyType, List<? extends Guy>> guyMap = new HashMap<>();
         List<Ghost>  ghostList = new ArrayList<>();
         List<Pacman> pacmanList = new ArrayList<>();
@@ -75,6 +75,18 @@ public class SpriteLoader {
         Pacman pacman = new Pacman(pacmanImages);
         pacmanList.add(pacman);
         guyMap.put(GuyType.PACMAN, pacmanList);
+        return guyMap;
+    }
+
+    public static Map<GuyType, List<? extends Guy>> get() {
+        if (guyMap == null) {
+            try {
+                BufferedImage[][] subImages = loadSpritesFromSheet();
+                guyMap = loadGuys(subImages);
+            } catch (Exception e) {
+                LOGGER.error("There was a problem creating sub images: ", e);
+            }
+        }
         return guyMap;
     }
 }

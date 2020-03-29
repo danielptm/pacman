@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 public abstract class Guy {
     private int positionX;
     private int positionY;
+
     private Image currentState;
 
     protected Image[] physicalStates;
@@ -25,6 +26,22 @@ public abstract class Guy {
     }
     public void left() {
 
+    }
+
+    public int getPositionX() {
+        return positionX;
+    }
+
+    public int getPositionY() {
+        return positionY;
+    }
+
+    public void setPositionX(int positionX) {
+        this.positionX = positionX;
+    }
+
+    public void setPositionY(int positionY) {
+        this.positionY = positionY;
     }
 
     public Image getCurrentState() {

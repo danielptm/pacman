@@ -4,8 +4,7 @@ public class MapContext {
     private static int width = 800;
     private static int height = 800;
 
-
-    private boolean[][] availableSpaces = new boolean[width * 4][height * 4];
+    private char[][] map = new char[width][height];
 
     private static final MapContext MAP_CONTEXT = new MapContext();
 
@@ -21,5 +20,9 @@ public class MapContext {
 
     public int getHeight() {
         return height;
+    }
+
+    public char[][] getMap() {
+        return map;
     }
 }
