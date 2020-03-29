@@ -34,7 +34,6 @@ public class Context extends Application implements CommandLineRunner {
         Canvas canvas = new Canvas( mapContext.getWidth(), mapContext.getHeight() );
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-
         Pane root = new Pane();
 
         String background = getClass().getClassLoader().getResource("background2.jpg").getPath();
