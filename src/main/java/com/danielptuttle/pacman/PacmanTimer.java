@@ -1,5 +1,6 @@
 package com.danielptuttle.pacman;
 
+import com.danielptuttle.pacman.model.barrier.WallUnit;
 import com.danielptuttle.pacman.model.characters.Ghost;
 import com.danielptuttle.pacman.model.characters.Guy;
 import com.danielptuttle.pacman.model.characters.GuyType;
@@ -42,6 +43,7 @@ public class PacmanTimer extends AnimationTimer {
 //        pacman.setPositionX(330);
 
         gc.drawImage(pacman.getCurrentState(), pacman.getPositionX(), pacman.getPositionY());
+        gc.drawImage(new WallUnit().getImage(), 300, 300);
 
 
 
