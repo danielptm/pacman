@@ -11,11 +11,14 @@ import java.io.FileNotFoundException;
 public class WallUnit {
     private static final Logger LOGGER = LogManager.getLogger(GameCharacters.class);
 
+    public static int WIDTH = 25;
+    public static int HEIGHT = 25;
+
     private static Image IMAGE;
 
     static {
         try {
-            IMAGE = new Image(new FileInputStream(WallUnit.class.getClassLoader().getResource("barrier.png").getPath()), 25, 25, false, false);
+            IMAGE = new Image(new FileInputStream(WallUnit.class.getClassLoader().getResource("barrier.png").getPath()), WIDTH, HEIGHT, false, false);
         } catch (FileNotFoundException e) {
             LOGGER.error("There was a problem instantiating WallUnit: ", e);
         }

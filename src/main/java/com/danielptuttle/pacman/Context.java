@@ -22,12 +22,12 @@ import java.util.Map;
 @Component
 public class Context extends Application implements CommandLineRunner {
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) throws NodeDoesNotExist {
         launch(args);
     }
 
     @Override
-    public void start(Stage theStage) throws Exception {
+    public void start(Stage theStage) throws NodeDoesNotExist {
         theStage.setTitle( "Pacman by 🐢" );
 
         MapContext mapContext = MapContext.get();
