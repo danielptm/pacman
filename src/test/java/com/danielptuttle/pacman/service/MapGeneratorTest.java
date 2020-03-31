@@ -4,7 +4,24 @@ import com.danielptuttle.pacman.model.map.MapContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 public class MapGeneratorTest {
+
+    @Test
+    public void testCreateWallUnit () {
+        int startX = 200;
+        int startY = 200;
+        char[][] map = MapContext.getInstance().getMap();
+
+        char[][] result = MapContext.getInstance().getMap();
+
+        MapGenerator.createWallUnit(startX, startY, result);
+
+        Assertions.assertEquals('w', result[200][200]);
+        Assertions.assertEquals('w', result[212][212]);
+        Assertions.assertEquals('w', result[224][224]);
+    }
 
     @Test
     public void testCreateLineFromNodeTop() {
