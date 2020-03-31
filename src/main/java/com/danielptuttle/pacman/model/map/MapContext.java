@@ -10,7 +10,7 @@ public class MapContext {
 
     private MapContext() {}
 
-    public static MapContext get() {
+    public static MapContext getInstance() {
         return MAP_CONTEXT;
     }
 

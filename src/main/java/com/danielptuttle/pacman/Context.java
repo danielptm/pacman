@@ -30,7 +30,7 @@ public class Context extends Application implements CommandLineRunner {
     public void start(Stage theStage) throws NodeDoesNotExist {
         theStage.setTitle( "Pacman by 🐢" );
 
-        MapContext mapContext = MapContext.get();
+        MapContext mapContext = MapContext.getInstance();
         Canvas canvas = new Canvas( mapContext.getWidth(), mapContext.getHeight() );
         GraphicsContext gc = canvas.getGraphicsContext2D();
 

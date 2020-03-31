@@ -15,7 +15,7 @@ import java.util.Map;
 public class PacmanTimer extends AnimationTimer {
     private GraphicsContext gc;
     private Map<GuyType, List<? extends Guy>> guyMap;
-    private MapContext mapContext = MapContext.get();
+    private MapContext mapContext = MapContext.getInstance();
 
     public PacmanTimer(GraphicsContext gc, Map<GuyType, List<? extends Guy>> guyMap) {
         this.gc = gc;
