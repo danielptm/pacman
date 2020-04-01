@@ -36,8 +36,9 @@ public class MapGenerator {
         boolean result = false;
         for (int i = 0; i < 25; i++) {
             for (int j = 0; j < 25; j++) {
-                if (map[i][j] != 'w') {
+                if (map[startX + i][startY + j] == 'w') {
                     result = true;
+                    break;
                 }
             }
         }
@@ -45,28 +46,30 @@ public class MapGenerator {
     }
 
     static void createLineFromPoint(int startX, int startY, char[][] map, Direction direction, int length) {
-        if (!hasWallUnit(startX, startY, map)) {
+
+        boolean unitExists = hasWallUnit(startX, startY, map);
+        if (!unitExists) {
             createWallUnit(startX, startY, map);
         }
         switch(direction) {
             case TOP:
-                for (int i = 1; i < length; i++) {
-                    map[startX][startY - (i + 25)] = 'w';
+                for (int i = 1; i <= length; i++) {
+                    createWallUnit(startX, startY - (i * 25), map);
                 }
                 break;
             case RIGHT:
-                for (int i = 1; i < length; i++) {
-                    map[startX + i][startY] = 'w';
+                for (int i = 1; i <= length; i++) {
+                    createWallUnit(startX + (i * 25), startY, map);
                 }
                 break;
             case BOTTOM:
-                for (int i = 1; i < length; i++) {
-                    map[startX][startY + i] = 'w';
+                for (int i = 1; i <= length; i++) {
+                    createWallUnit(startX, startY + (i * 25), map);
                 }
                 break;
             case LEFT:
-                for (int i = 1; i < length; i++) {
-                    map[startX - i][startY] = 'w';
+                for (int i = 1; i <= length; i++) {
+                    createWallUnit(startX - (i * 25), startY , map);
                 }
                 break;
         }
