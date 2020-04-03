@@ -34,7 +34,7 @@ public class PacmanTimer extends AnimationTimer {
         for (int i = 0; i < mapContext.getHeight(); i++) {
             for (int j = 0; j < mapContext.getWidth(); j++) {
                 if (mapContext.getMap()[i][j] == 'w') {
-                    gc.drawImage(wallUnit, i, j);
+                    gc.drawImage(wallUnit, j, i);
                 }
             }
         }

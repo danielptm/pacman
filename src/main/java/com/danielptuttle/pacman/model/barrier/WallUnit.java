@@ -11,8 +11,8 @@ import java.io.FileNotFoundException;
 public class WallUnit {
     private static final Logger LOGGER = LogManager.getLogger(GameCharacters.class);
 
-    public static int WIDTH = 25;
-    public static int HEIGHT = 25;
+    public static int WIDTH = 1;
+    public static int HEIGHT = 1;
 
     private static Image IMAGE;
 
