@@ -1,7 +1,5 @@
 package com.danielptuttle.pacman.model.characters;
 
-import com.danielptuttle.pacman.model.barrier.WallUnit;
-import javafx.scene.image.Image;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +16,51 @@ public class GameCharactersTest {
     }
 
     @Test
-    public void testing() {
-        Image image = WallUnit.getImage();
+    public void testCalculateImageStateUp() {
+        Pacman pacman = new Pacman(null);
+        int prevX = 2;
+        int prevY = 2;
+        int newX = 2;
+        int newY = 1;
+        pacman.calculateImageState(prevX, prevY, newX, newY);
+        GuyDirection result = pacman.getGuyDirection();
+        Assertions.assertEquals(GuyDirection.UP, result);
+    }
+
+    @Test
+    public void testCalculateImageStateRight() {
+        Pacman pacman = new Pacman(null);
+        int prevX = 2;
+        int prevY = 2;
+        int newX = 3;
+        int newY = 2;
+        pacman.calculateImageState(prevX, prevY, newX, newY);
+        GuyDirection result = pacman.getGuyDirection();
+
+        Assertions.assertEquals(GuyDirection.RIGHT, result);
+    }
+
+    @Test
+    public void testCalculateImageStateDown() {
+        Pacman pacman = new Pacman(null);
+        int prevX = 2;
+        int prevY = 2;
+        int newX = 2;
+        int newY = 3;
+        pacman.calculateImageState(prevX, prevY, newX, newY);
+        GuyDirection result = pacman.getGuyDirection();
+        Assertions.assertEquals(GuyDirection.DOWN, result);
+    }
+
+    @Test
+    public void testCalculateImageStateLeft() {
+        Pacman pacman = new Pacman(null);
+        int prevX = 2;
+        int prevY = 2;
+        int newX = 1;
+        int newY = 2;
+        pacman.calculateImageState(prevX, prevY, newX, newY);
+        GuyDirection result = pacman.getGuyDirection();
+        Assertions.assertEquals(GuyDirection.LEFT, result);
     }
 }
