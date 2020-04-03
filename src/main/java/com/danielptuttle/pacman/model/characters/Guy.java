@@ -26,15 +26,11 @@ public abstract class Guy {
         return currentPositionY;
     }
 
-    public void setPositionX(int positionX) {
+    public void setPosition(int positionX, int currentPositionY) {
+        this.previousY = this.currentPositionY;
+        this.currentPositionY = currentPositionY;
         this.previousX = this.currentPositionX;
         this.currentPositionX = positionX;
-        calculateImageState(this.previousX, this.previousY, this.currentPositionX, this.currentPositionY);
-    }
-
-    public void setPositionY(int positionY) {
-        this.previousY = this.currentPositionY;
-        this.currentPositionY = positionY;
         calculateImageState(this.previousX, this.previousY, this.currentPositionX, this.currentPositionY);
     }
 
@@ -58,18 +54,18 @@ public abstract class Guy {
     }
 
     public Image getCurrentState() {
-        switch (guyDirection) {
+        switch (this.guyDirection) {
             case UP:
-                currentState = physicalStates[0];
+                this.currentState = physicalStates[9];
                 break;
             case RIGHT:
-                currentState = physicalStates[1];
+                this.currentState = physicalStates[1];
                 break;
             case DOWN:
-                currentState = physicalStates[2];
+                this.currentState = physicalStates[4];
                 break;
             case LEFT:
-                currentState = physicalStates[3];
+                this.currentState = physicalStates[7];
                 break;
         }
         return currentState;

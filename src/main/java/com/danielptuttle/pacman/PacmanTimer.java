@@ -65,6 +65,7 @@ public class PacmanTimer extends AnimationTimer {
 
 //        gc.setFill(Paint.valueOf("RED"));
 //        gc.fillRect(pacman.getPositionX(), pacman.getPositionY(), 50, 50);
+
         this.gc.drawImage(pacman.getCurrentState(), pacman.getPositionX(), pacman.getPositionY());
 
 //        gc.drawImage(WallUnit.getImage(), 300, 300);
