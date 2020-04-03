@@ -19,7 +19,6 @@ public class GameCharactersTest {
 
     @Test
     public void testing() {
-        WallUnit wallUnit = new WallUnit();
-        Image image = wallUnit.getImage();
+        Image image = WallUnit.getImage();
     }
 }

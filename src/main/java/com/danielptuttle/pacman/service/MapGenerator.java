@@ -6,10 +6,8 @@ import java.util.Arrays;
 
 public class MapGenerator {
 
-    public static WallRoot createPlus() {
-        WallRoot wallRoot = new WallRoot(300);
-        int num = 5;
-        return wallRoot;
+    public static void createPlus(char[][] map) {
+        createLineFromPoint(400, 400, map, Direction.RIGHT, 5);
     }
 
     public WallRoot createLShape() {

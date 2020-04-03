@@ -6,8 +6,11 @@ import com.danielptuttle.pacman.model.characters.Guy;
 import com.danielptuttle.pacman.model.characters.GuyType;
 import com.danielptuttle.pacman.model.characters.Pacman;
 import com.danielptuttle.pacman.model.map.MapContext;
+import com.danielptuttle.pacman.service.MapGenerator;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Paint;
 
 import java.util.List;
 import java.util.Map;
@@ -20,12 +23,29 @@ public class PacmanTimer extends AnimationTimer {
     public PacmanTimer(GraphicsContext gc, Map<GuyType, List<? extends Guy>> guyMap) {
         this.gc = gc;
         this.guyMap = guyMap;
+        initializeMap(this.gc);
     };
+
+    void initializeMap(GraphicsContext gc) {
+        MapContext mapContext = MapContext.getInstance();
+        Image wallUnit = WallUnit.getImage();
+        MapGenerator.createPlus(mapContext.getMap());
+
+        for (int i = 0; i < mapContext.getHeight(); i++) {
+            for (int j = 0; j < mapContext.getWidth(); j++) {
+                if (mapContext.getMap()[i][j] == 'w') {
+                    gc.drawImage(wallUnit, i, j);
+                }
+            }
+        }
+    }
 
     @Override
     public void handle(long currentNanoTime) {
-        this.gc.clearRect(0, 0, mapContext.getWidth(), mapContext.getHeight());
         Pacman pacman = (Pacman) guyMap.get(GuyType.PACMAN).get(0);
+
+        this.gc.clearRect(pacman.getPositionX(), pacman.getPositionY(), 50, 50);
+
 
         Ghost ghost0 = (Ghost) guyMap.get(GuyType.GHOST).get(0);
         Ghost ghost1 = (Ghost) guyMap.get(GuyType.GHOST).get(1);
@@ -42,8 +62,12 @@ public class PacmanTimer extends AnimationTimer {
 //
 //        pacman.setPositionX(330);
 
-        gc.drawImage(pacman.getCurrentState(), pacman.getPositionX(), pacman.getPositionY());
-        gc.drawImage(new WallUnit().getImage(), 300, 300);
+
+//        gc.setFill(Paint.valueOf("RED"));
+//        gc.fillRect(pacman.getPositionX(), pacman.getPositionY(), 50, 50);
+        this.gc.drawImage(pacman.getCurrentState(), pacman.getPositionX(), pacman.getPositionY());
+
+//        gc.drawImage(WallUnit.getImage(), 300, 300);
 
 
 
@@ -53,5 +77,6 @@ public class PacmanTimer extends AnimationTimer {
 //        gc.drawImage(ghost3.getCurrentState(), ghost3.getPositionX(), ghost3.getPositionY());
 //        gc.drawImage(ghost4.getCurrentState(), ghost4.getPositionX(), ghost4.getPositionY());
 //        gc.drawImage(ghost5.getCurrentState(), ghost5.getPositionX(), ghost5.getPositionY());
+
     }
 }

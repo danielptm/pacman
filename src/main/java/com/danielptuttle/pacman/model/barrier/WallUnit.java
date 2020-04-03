@@ -24,9 +24,9 @@ public class WallUnit {
         }
     }
 
-    public WallUnit() { }
+    private WallUnit() { }
 
-    public Image getImage() {
+    public static Image getImage() {
         return IMAGE;
     }
 }
