@@ -36,7 +36,7 @@ public class Context extends Application implements CommandLineRunner {
 
         Pane root = new Pane();
 
-        String background = getClass().getClassLoader().getResource("background2.jpg").getPath();
+        String background = getClass().getClassLoader().getResource("background3.jpg").getPath();
         String formattedBackground = "file://"+background;
         String formattedStyle = String.format("-fx-background-image: url('%s');-fx-background-size: cover;", formattedBackground);
         root.setStyle(formattedStyle);

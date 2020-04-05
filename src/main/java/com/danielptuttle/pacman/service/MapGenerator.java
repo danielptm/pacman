@@ -43,7 +43,7 @@ public class MapGenerator {
         return result;
     }
 
-    static void createLineFromPoint(int startX, int startY, char[][] map, Direction direction, int length) {
+    public static void createLineFromPoint(int startX, int startY, char[][] map, Direction direction, int length) {
 
         boolean unitExists = hasWallUnit(startX, startY, map);
         if (!unitExists) {
@@ -74,9 +74,3 @@ public class MapGenerator {
     }
 }
 
-enum Direction {
-    TOP,
-    RIGHT,
-    BOTTOM,
-    LEFT
-}

@@ -91,6 +91,59 @@ public abstract class Guy {
         return currentState;
     }
 
+    public boolean objectIsUp(char[][] map) {
+        if (map[this.currentPositionY - 1][this.currentPositionX] == 'w') {
+            return true;
+        }
+        if (map[this.currentPositionY - 1][this.currentPositionX + 12] == 'w') {
+            return true;
+        }
+        if (map[this.currentPositionY - 1][this.currentPositionX + 24] == 'w') {
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean objectIsRight(char[][] map) {
+        if (map[this.currentPositionY][this.currentPositionX + 24] == 'w') {
+            return true;
+        }
+        if (map[this.currentPositionY + 12][this.currentPositionX + 24] == 'w') {
+            return true;
+        }
+        if (map[this.currentPositionY + 24][this.currentPositionX + 24] == 'w') {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean objectIsDown(char[][] map) {
+        if (map[this.currentPositionY + 24][this.currentPositionX] == 'w') {
+            return true;
+        }
+        if (map[this.currentPositionY + 24][this.currentPositionX + 12] == 'w') {
+            return true;
+        }
+        if (map[this.currentPositionY + 24][this.currentPositionX + 24] == 'w') {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean objectIsLeft(char[][] map) {
+        if (map[this.currentPositionY][this.currentPositionX] == 'w') {
+            return true;
+        }
+        if (map[this.currentPositionY + 12][this.currentPositionX] == 'w') {
+            return true;
+        }
+        if (map[this.currentPositionY + 24][this.currentPositionX] == 'w') {
+            return true;
+        }
+        return false;
+    }
+
     public GuyDirection getGuyDirection() {
         return guyDirection;
     }
