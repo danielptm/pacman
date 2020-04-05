@@ -33,8 +33,11 @@ public abstract class Guy {
 
     public void setPosition(int positionX, int currentPositionY) {
         this.previousY = this.currentPositionY;
-        this.currentPositionY = currentPositionY;
         this.previousX = this.currentPositionX;
+
+
+        //TODO: Add logic here to see where pacman can move!
+        this.currentPositionY = currentPositionY;
         this.currentPositionX = positionX;
         calculateImageState(this.previousX, this.previousY, this.currentPositionX, this.currentPositionY);
     }
