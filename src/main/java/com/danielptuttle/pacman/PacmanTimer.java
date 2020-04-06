@@ -10,7 +10,6 @@ import com.danielptuttle.pacman.service.MapGenerator;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Paint;
 
 import java.util.List;
 import java.util.Map;
@@ -29,7 +28,9 @@ public class PacmanTimer extends AnimationTimer {
     void initializeMap(GraphicsContext gc) {
         MapContext mapContext = MapContext.getInstance();
         Image wallUnit = WallUnit.getImage();
-        MapGenerator.createPlus(mapContext.getMap());
+
+        setMapBorder(mapContext.getMap());
+        createClassicMap();
 
         for (int i = 0; i < mapContext.getHeight(); i++) {
             for (int j = 0; j < mapContext.getWidth(); j++) {
@@ -38,6 +39,34 @@ public class PacmanTimer extends AnimationTimer {
                 }
             }
         }
+    }
+
+    void setMapBorder(char[][] map) {
+        for (int i = 0; i < 800; i++) {
+            map[0][i] = 'w';
+            map[i][0] = 'w';
+            map[799][i] = 'w';
+            map[i][799] = 'w';
+        }
+    }
+
+    void createClassicMap() {
+        MapGenerator.createElongatedBox(60, 60, 2, mapContext.getMap());
+
+
+//
+//        MapGenerator.createElongatedBox(230, 55, 2, mapContext.getMap());
+//        MapGenerator.createLineFromPoint(400, 1,  mapContext.getMap(), Direction.BOTTOM, 2);
+//        MapGenerator.createElongatedBox(485, 55, 2, mapContext.getMap());
+//        MapGenerator.createElongatedBox(650, 55, 2, mapContext.getMap());
+//
+//        MapGenerator.createElongatedBox(60, 150, 2, mapContext.getMap());
+
+//        MapGenerator.createElongatedBox(100, 100, mapContext.getMap());
+//        MapGenerator.createElongatedBox(300, 100, mapContext.getMap());
+//        MapGenerator.createPlus(400, 400, mapContext.getMap());
+//        MapGenerator.createLeftLShape(200, 500, mapContext.getMap());
+//        MapGenerator.createRightLShape(500, 500, mapContext.getMap());
     }
 
     @Override

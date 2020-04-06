@@ -61,7 +61,7 @@ public class GameCharacters {
                 BufferedImage image = spriteImages[color.ordinal()][i];
                 ghostImages[i] = SwingFXUtils.toFXImage(image, null);
             }
-            Ghost ghost = new Ghost(color, ghostImages);
+            Ghost ghost = new Ghost(color, ghostImages, 400, 400);
             ghostList.add(ghost);
         }
         guyMap.put(GuyType.GHOST, ghostList);
@@ -72,10 +72,17 @@ public class GameCharacters {
             Image pacmanFx = SwingFXUtils.toFXImage(pacman, null);
             pacmanImages[i] = pacmanFx;
         }
-        Pacman pacman = new Pacman(pacmanImages);
+        Pacman pacman = new Pacman(pacmanImages, 5, 5);
         pacmanList.add(pacman);
         guyMap.put(GuyType.PACMAN, pacmanList);
         return guyMap;
+    }
+
+    //TODO: Implement this according to instructions in github issues.
+    BufferedImage removeWhiteSpace(BufferedImage image) {
+        BufferedImage wsRemoved = null;
+
+        return wsRemoved;
     }
 
     public static Map<GuyType, List<? extends Guy>> get() {

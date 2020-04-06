@@ -19,8 +19,10 @@ public abstract class Guy {
 
     protected Image[] physicalStates;
 
-    protected Guy(Image[] images) {
+    protected Guy(Image[] images, int initialPositionX, int initialPositionY) {
         physicalStates = images;
+        this.currentPositionX = initialPositionX;
+        this.currentPositionY = initialPositionY;
     }
 
     public int getPositionX() {
@@ -31,14 +33,33 @@ public abstract class Guy {
         return currentPositionY;
     }
 
-    public void setPosition(int positionX, int currentPositionY) {
+    public void setPosition(int positionX, int positionY, char[][] map) {
         this.previousY = this.currentPositionY;
         this.previousX = this.currentPositionX;
 
-
         //TODO: Add logic here to see where pacman can move!
-        this.currentPositionY = currentPositionY;
-        this.currentPositionX = positionX;
+        if (positionX > this.previousX) {
+            if (!objectIsRight(map)) {
+                this.currentPositionX = positionX;
+            }
+        }
+        if (positionX < this.previousX) {
+            if (!objectIsLeft(map)) {
+                this.currentPositionX = positionX;
+            }
+        }
+
+        if (positionY > this.previousY) {
+            if (!objectIsDown(map)) {
+                this.currentPositionY = positionY;
+            }
+        }
+
+        if (positionY < this.previousY) {
+            if (!objectIsUp(map)) {
+                this.currentPositionY = positionY;
+            }
+        }
         calculateImageState(this.previousX, this.previousY, this.currentPositionX, this.currentPositionY);
     }
 
@@ -94,55 +115,40 @@ public abstract class Guy {
         return currentState;
     }
 
+    //TODO: Fix the unit tests for these functions, because they are messed up.
     public boolean objectIsUp(char[][] map) {
-        if (map[this.currentPositionY - 1][this.currentPositionX] == 'w') {
-            return true;
-        }
-        if (map[this.currentPositionY - 1][this.currentPositionX + 12] == 'w') {
-            return true;
-        }
-        if (map[this.currentPositionY - 1][this.currentPositionX + 24] == 'w') {
-            return true;
+        for (int i = this.currentPositionX; i < this.currentPositionX + 49; i++) {
+            if (map[this.currentPositionY - 1][i] == 'w') {
+                return true;
+            }
         }
         return false;
     }
 
 
     public boolean objectIsRight(char[][] map) {
-        if (map[this.currentPositionY][this.currentPositionX + 24] == 'w') {
-            return true;
-        }
-        if (map[this.currentPositionY + 12][this.currentPositionX + 24] == 'w') {
-            return true;
-        }
-        if (map[this.currentPositionY + 24][this.currentPositionX + 24] == 'w') {
-            return true;
+        for (int i = this.currentPositionY; i < this.currentPositionY + 50; i++) {
+            if (map[i][this.currentPositionX + 50] == 'w') {
+                return true;
+            }
         }
         return false;
     }
 
     public boolean objectIsDown(char[][] map) {
-        if (map[this.currentPositionY + 24][this.currentPositionX] == 'w') {
-            return true;
-        }
-        if (map[this.currentPositionY + 24][this.currentPositionX + 12] == 'w') {
-            return true;
-        }
-        if (map[this.currentPositionY + 24][this.currentPositionX + 24] == 'w') {
-            return true;
+        for (int i = this.currentPositionX; i < this.currentPositionX + 49; i++) {
+            if (map[this.currentPositionY + 50][i] == 'w') {
+                return true;
+            }
         }
         return false;
     }
 
     public boolean objectIsLeft(char[][] map) {
-        if (map[this.currentPositionY][this.currentPositionX] == 'w') {
-            return true;
-        }
-        if (map[this.currentPositionY + 12][this.currentPositionX] == 'w') {
-            return true;
-        }
-        if (map[this.currentPositionY + 24][this.currentPositionX] == 'w') {
-            return true;
+        for (int i = this.currentPositionY; i < this.currentPositionY + 49; i++) {
+            if (map[i][this.currentPositionX - 1] == 'w') {
+                return true;
+            }
         }
         return false;
     }

@@ -31,7 +31,7 @@ public class Context extends Application implements CommandLineRunner {
         theStage.setTitle( "Pacman by 🐢" );
 
         MapContext mapContext = MapContext.getInstance();
-        Canvas canvas = new Canvas( mapContext.getWidth(), mapContext.getHeight() );
+        Canvas canvas = new Canvas( mapContext.getWidth(), mapContext.getHeight());
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         Pane root = new Pane();
@@ -58,21 +58,22 @@ public class Context extends Application implements CommandLineRunner {
     }
 
     private void setKeyBoardListener(Scene scene, Pacman pacman) {
+        char[][] map = MapContext.getInstance().getMap();
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
                     case UP:
-                        pacman.setPosition(pacman.getPositionX(), pacman.getPositionY() - 5);
+                        pacman.setPosition(pacman.getPositionX(), pacman.getPositionY() - 5, map);
                         break;
                     case DOWN:
-                        pacman.setPosition(pacman.getPositionX(),pacman.getPositionY() + 5);
+                        pacman.setPosition(pacman.getPositionX(),pacman.getPositionY() + 5, map);
                         break;
                     case LEFT:
-                        pacman.setPosition(pacman.getPositionX() - 5, pacman.getPositionY());
+                        pacman.setPosition(pacman.getPositionX() - 5, pacman.getPositionY(), map);
                         break;
                     case RIGHT:
-                        pacman.setPosition(pacman.getPositionX() + 5, pacman.getPositionY());
+                        pacman.setPosition(pacman.getPositionX() + 5, pacman.getPositionY(), map);
                         break;
                 }
             }

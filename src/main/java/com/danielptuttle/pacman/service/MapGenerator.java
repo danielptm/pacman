@@ -6,19 +6,51 @@ import java.util.Arrays;
 
 public class MapGenerator {
 
-    public static void createPlus(char[][] map) {
-        createLineFromPoint(400, 400, map, Direction.RIGHT, 5);
+    public static void createPlus(int middleX, int middleY, char[][] map) {
+        createLineFromPoint(middleX, middleY, map, Direction.TOP, 3);
+        createLineFromPoint(middleX, middleY, map, Direction.RIGHT, 3);
+        createLineFromPoint(middleX, middleY, map, Direction.LEFT, 3);
+        createLineFromPoint(middleX, middleY, map, Direction.BOTTOM, 3);
     }
 
-    public WallRoot createLShape() {
+    public static void createRightLShape(int middleX, int middleY, char[][] map) {
+        createLineFromPoint(middleX, middleY, map, Direction.TOP, 2);
+        createLineFromPoint(middleX, middleY, map, Direction.LEFT, 2);
+        createLineFromPoint(middleX, middleY, map, Direction.RIGHT, 3);
+    }
+
+    public static void createLeftLShape(int middleX, int middleY, char[][] map) {
+        createLineFromPoint(middleX, middleY, map, Direction.TOP, 2);
+        createLineFromPoint(middleX, middleY, map, Direction.LEFT, 3);
+        createLineFromPoint(middleX, middleY, map, Direction.RIGHT, 2);
+    }
+
+    public static void createHalfDownPlus(int middleX, int middleY, char[][] map) {
+        createLineFromPoint(middleX, middleY, map, Direction.BOTTOM, 2);
+        createLineFromPoint(middleX, middleY, map, Direction.LEFT, 2);
+        createLineFromPoint(middleX, middleY, map, Direction.RIGHT, 2);
+    }
+
+    public static void createQuarterRightPlus(int middleX, int middleY, char[][] map) {
+        createLineFromPoint(middleX, middleY, map, Direction.BOTTOM, 2);
+        createLineFromPoint(middleX, middleY, map, Direction.RIGHT, 2);
+    }
+
+    public static void createQuarterLeftPlus(int middleX, int middleY, char[][] map) {
+        createLineFromPoint(middleX, middleY, map, Direction.BOTTOM, 2);
+        createLineFromPoint(middleX, middleY, map, Direction.LEFT, 2);
+    }
+
+    public static void createElongatedBox(int middleX, int middleY, int length, char[][] map) {
+        createLineFromPoint(middleX, middleY, map, Direction.RIGHT, length);
+        createLineFromPoint(middleX , middleY + 25, map, Direction.RIGHT, length);
+    }
+
+    public WallRoot createTShape(int middleX, int middleY, char[][] map) {
         return null;
     }
 
-    public WallRoot createTShape() {
-        return null;
-    }
-
-    public WallRoot createBox() {
+    public WallRoot createBox(int middleX, int middleY, char[][] map) {
         return null;
     }
 
