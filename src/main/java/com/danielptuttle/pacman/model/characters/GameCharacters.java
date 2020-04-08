@@ -59,7 +59,8 @@ public class GameCharacters {
             Image[] ghostImages = new Image[10];
             for (int i = 0; i < 10; i ++) {
                 BufferedImage image = spriteImages[color.ordinal()][i];
-                ghostImages[i] = SwingFXUtils.toFXImage(image, null);
+                BufferedImage removedWs = removeWhiteSpace(image);
+                ghostImages[i] = SwingFXUtils.toFXImage(removedWs, null);
             }
             Ghost ghost = new Ghost(color, ghostImages, 400, 400);
             ghostList.add(ghost);
@@ -69,7 +70,8 @@ public class GameCharacters {
         Image[] pacmanImages = new Image[12];
         for (int i = 0; i < 12; i++ ) {
             BufferedImage pacman = spriteImages[17][i];
-            Image pacmanFx = SwingFXUtils.toFXImage(pacman, null);
+            BufferedImage removedWsPac = removeWhiteSpace(pacman);
+            Image pacmanFx = SwingFXUtils.toFXImage(removedWsPac, null);
             pacmanImages[i] = pacmanFx;
         }
         Pacman pacman = new Pacman(pacmanImages, 5, 5);
@@ -79,8 +81,73 @@ public class GameCharacters {
     }
 
     //TODO: Implement this according to instructions in github issues.
-    BufferedImage removeWhiteSpace(BufferedImage image) {
+    static BufferedImage removeWhiteSpace(BufferedImage image) {
         BufferedImage wsRemoved = null;
+
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        int furthestLeft = -1;
+        int furthestRight = -1;
+        int furthestUp = -1;
+        int furthestDown = -1;
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int[] pixel = image.getRaster().getPixel(x, y, (int[]) null);
+                if (pixel[0] != 255 || pixel[1] != 255 || pixel[2] != 255) {
+                    furthestLeft = x;
+                    break;
+                }
+            }
+            if (furthestLeft != -1) {
+                break;
+            }
+        }
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int[] pixel = image.getRaster().getPixel(x, y, (int[]) null);
+                if (pixel[0] != 255 || pixel[1] != 255 || pixel[2] != 255) {
+                    furthestUp = y;
+                    break;
+                }
+            }
+            if (furthestUp != -1) {
+                break;
+            }
+        }
+
+        for (int y = height - 1; y > 0; y--) {
+            for (int x = width - 1; x > 0; x--) {
+                int[] pixel = image.getRaster().getPixel(x, y, (int[]) null);
+                if (pixel[0] != 255 || pixel[1]!=255 || pixel[2] != 255) {
+                    furthestDown = y;
+                    break;
+                }
+            }
+            if (furthestDown != -1) {
+                break;
+            }
+        }
+
+        for (int x = width - 1; x > 0; x--) {
+            for (int y = height - 1; y > 0; y--) {
+                int[] pixel = image.getRaster().getPixel(x, y, (int[]) null);
+                if (pixel[0] != 255 || pixel[1] != 255 || pixel[2] != 255) {
+                    furthestRight = x + 1;
+                    break;
+                }
+            }
+            if (furthestRight != -1) {
+                break;
+            }
+        }
+
+        int newWidth = furthestRight - furthestLeft;
+        int newHeight = furthestDown - furthestUp;
+
+        wsRemoved = image.getSubimage(furthestLeft, furthestUp, newWidth, newHeight);
 
         return wsRemoved;
     }

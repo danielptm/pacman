@@ -37,7 +37,6 @@ public abstract class Guy {
         this.previousY = this.currentPositionY;
         this.previousX = this.currentPositionX;
 
-        //TODO: Add logic here to see where pacman can move!
         if (positionX > this.previousX) {
             if (!objectIsRight(map)) {
                 this.currentPositionX = positionX;
