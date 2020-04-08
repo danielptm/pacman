@@ -72,8 +72,9 @@ public class PacmanTimer extends AnimationTimer {
     @Override
     public void handle(long currentNanoTime) {
         Pacman pacman = (Pacman) guyMap.get(GuyType.PACMAN).get(0);
+        Image currentState = pacman.getCurrentState();
 
-        this.gc.clearRect(pacman.getPositionX(), pacman.getPositionY(), 50, 50);
+        this.gc.clearRect(pacman.getPositionX(), pacman.getPositionY(), currentState.getWidth(), currentState.getHeight());
 
 
         Ghost ghost0 = (Ghost) guyMap.get(GuyType.GHOST).get(0);
