@@ -64,16 +64,16 @@ public class Context extends Application implements CommandLineRunner {
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
                     case UP:
-                        pacman.setPosition(pacman.getPositionX(), pacman.getPositionY() - 5, map);
+                        pacman.setPosition(pacman.getPositionX(), pacman.getPositionY() - pacman.getSpeed(), map);
                         break;
                     case DOWN:
-                        pacman.setPosition(pacman.getPositionX(),pacman.getPositionY() + 5, map);
+                        pacman.setPosition(pacman.getPositionX(),pacman.getPositionY() + pacman.getSpeed(), map);
                         break;
                     case LEFT:
-                        pacman.setPosition(pacman.getPositionX() - 5, pacman.getPositionY(), map);
+                        pacman.setPosition(pacman.getPositionX() - pacman.getSpeed(), pacman.getPositionY(), map);
                         break;
                     case RIGHT:
-                        pacman.setPosition(pacman.getPositionX() + 5, pacman.getPositionY(), map);
+                        pacman.setPosition(pacman.getPositionX() + pacman.getSpeed(), pacman.getPositionY(), map);
                         break;
                 }
             }

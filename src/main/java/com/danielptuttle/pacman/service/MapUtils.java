@@ -1,10 +1,11 @@
 package com.danielptuttle.pacman.service;
 
 import com.danielptuttle.pacman.model.barrier.WallRoot;
+import com.danielptuttle.pacman.model.characters.Guy;
 
 import java.util.Arrays;
 
-public class MapGenerator {
+public class MapUtils {
 
     public static void createPlus(int middleX, int middleY, char[][] map) {
         createLineFromPoint(middleX, middleY, map, Direction.TOP, 3);
@@ -104,5 +105,20 @@ public class MapGenerator {
                 break;
         }
     }
+
+    /**
+     * Takes a Guy and the map and returns int[]. The int[] has a lenth of 4 and describes a rectangle
+     * where the guy has been. This int[] can be used by the clearRect() function of the
+     * GraphicsContext.
+     * The int[] has a length of 4.
+     * int[0]
+     * @param map
+     * @param guy
+     */
+    public static int[] clean(char[][] map, Guy guy) {
+
+        return null;
+    }
+
 }
 

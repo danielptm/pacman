@@ -1,19 +1,24 @@
 package com.danielptuttle.pacman.model.characters;
 
+import com.danielptuttle.pacman.service.Direction;
 import javafx.scene.image.Image;
 
 public abstract class Guy {
     private GuyDirection guyDirection = GuyDirection.DOWN;
+    private int speed = 5;
 
     private int previousX;
     private int previousY;
     private int currentPositionX;
     private int currentPositionY;
 
-    int upCounter = 9;
-    int rightCounter = 0;
-    int downCounter = 3;
-    int leftCounter = 6;
+    private int upCounter = 9;
+    private int rightCounter = 0;
+    private int downCounter = 3;
+    private int leftCounter = 6;
+
+    private int imageWidth;
+    private int imageHeight;
 
     private Image currentState;
 
@@ -23,40 +28,57 @@ public abstract class Guy {
         physicalStates = images;
         this.currentPositionX = initialPositionX;
         this.currentPositionY = initialPositionY;
+        setImageHeightAndWidths(this.physicalStates);
     }
 
-    public int getPositionX() {
-        return currentPositionX;
+    public int getSpeed() {
+        return speed;
     }
 
-    public int getPositionY() {
-        return currentPositionY;
+    void setImageHeightAndWidths(Image[] images) {
+        int height = 0;
+        int width = 0;
+
+        for (int i = 0; i < images.length; i++) {
+            if (images[i].getHeight() > height) {
+                height = (int) Math.ceil(images[i].getHeight());
+            }
+            if (images[i].getWidth() > width) {
+                width = (int) Math.ceil(images[i].getWidth());
+            }
+        }
+
+        this.imageWidth = width;
+        this.imageHeight = height;
+
     }
 
     public void setPosition(int positionX, int positionY, char[][] map) {
         this.previousY = this.currentPositionY;
         this.previousX = this.currentPositionX;
 
-        if (positionX > this.previousX) {
-            if (!objectIsRight(map)) {
-                this.currentPositionX = positionX;
+        if ((positionX > 1 && positionX < 799) && (positionY > 1 && positionY < 798)) {
+            if (positionX > this.previousX) {
+                if (!objectIsRight(map)) {
+                    this.currentPositionX = positionX;
+                }
             }
-        }
-        if (positionX < this.previousX) {
-            if (!objectIsLeft(map)) {
-                this.currentPositionX = positionX;
+            if (positionX < this.previousX) {
+                if (!objectIsLeft(map)) {
+                    this.currentPositionX = positionX;
+                }
             }
-        }
 
-        if (positionY > this.previousY) {
-            if (!objectIsDown(map)) {
-                this.currentPositionY = positionY;
+            if (positionY > this.previousY) {
+                if (!objectIsDown(map)) {
+                    this.currentPositionY = positionY;
+                }
             }
-        }
 
-        if (positionY < this.previousY) {
-            if (!objectIsUp(map)) {
-                this.currentPositionY = positionY;
+            if (positionY < this.previousY) {
+                if (!objectIsUp(map)) {
+                    this.currentPositionY = positionY;
+                }
             }
         }
         calculateImageState(this.previousX, this.previousY, this.currentPositionX, this.currentPositionY);
@@ -114,9 +136,32 @@ public abstract class Guy {
         return currentState;
     }
 
+//    public GuyDirection getDirection() {
+//        GuyDirection direction = GuyDirection.STILL;
+//        if (this.getPositionX() == this.getPreviousX()) {
+//            if (this.getPositionY() > this.getPreviousY()) {
+//                direction = GuyDirection.DOWN;
+//            } else if (this.getPositionY() < this.getPreviousY()) {
+//                direction = GuyDirection.UP;
+//            } else {
+//                direction = GuyDirection.STILL;
+//            }
+//        }
+//        if (this.getPositionY() == this.getPreviousY()) {
+//            if (this.getPositionX() > this.getPreviousX()) {
+//                direction = GuyDirection.RIGHT;
+//            } else if (this.getPositionX() < this.getPreviousX()) {
+//                direction = GuyDirection.LEFT;
+//            } else {
+//                direction = GuyDirection.STILL;
+//            }
+//        }
+//        return direction;
+//    }
+
     //TODO: Fix the unit tests for these functions, because they are messed up.
     public boolean objectIsUp(char[][] map) {
-        for (int i = this.currentPositionX; i < this.currentPositionX + 49; i++) {
+        for (int i = this.currentPositionX; i < this.currentPositionX + this.imageWidth; i++) {
             if (map[this.currentPositionY - 1][i] == 'w') {
                 return true;
             }
@@ -124,10 +169,9 @@ public abstract class Guy {
         return false;
     }
 
-
     public boolean objectIsRight(char[][] map) {
-        for (int i = this.currentPositionY; i < this.currentPositionY + 50; i++) {
-            if (map[i][this.currentPositionX + 50] == 'w') {
+        for (int i = this.currentPositionY; i < this.currentPositionY + this.imageHeight; i++) {
+            if (map[i][this.currentPositionX + this.imageWidth] == 'w') {
                 return true;
             }
         }
@@ -135,8 +179,8 @@ public abstract class Guy {
     }
 
     public boolean objectIsDown(char[][] map) {
-        for (int i = this.currentPositionX; i < this.currentPositionX + 49; i++) {
-            if (map[this.currentPositionY + 50][i] == 'w') {
+        for (int i = this.currentPositionX; i < this.currentPositionX + this.imageWidth; i++) {
+            if (map[this.currentPositionY + this.imageHeight][i] == 'w') {
                 return true;
             }
         }
@@ -144,13 +188,38 @@ public abstract class Guy {
     }
 
     public boolean objectIsLeft(char[][] map) {
-        for (int i = this.currentPositionY; i < this.currentPositionY + 49; i++) {
+        for (int i = this.currentPositionY; i < this.currentPositionY + this.imageHeight; i++) {
             if (map[i][this.currentPositionX - 1] == 'w') {
                 return true;
             }
         }
         return false;
     }
+
+    public int getImageWidth() {
+        return imageWidth;
+    }
+
+    public int getImageHeight() {
+        return imageHeight;
+    }
+
+    public int getPreviousX() {
+        return previousX;
+    }
+
+    public int getPreviousY() {
+        return previousY;
+    }
+
+    public int getPositionX() {
+        return currentPositionX;
+    }
+
+    public int getPositionY() {
+        return currentPositionY;
+    }
+
 
     public GuyDirection getGuyDirection() {
         return guyDirection;
@@ -161,5 +230,6 @@ enum GuyDirection{
     UP,
     RIGHT,
     DOWN,
-    LEFT
+    LEFT,
+    STILL
 }

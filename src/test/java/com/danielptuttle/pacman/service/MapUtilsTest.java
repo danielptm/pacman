@@ -1,11 +1,19 @@
 package com.danielptuttle.pacman.service;
 
+import com.danielptuttle.pacman.model.characters.GameCharacters;
+import com.danielptuttle.pacman.model.characters.Guy;
+import com.danielptuttle.pacman.model.characters.GuyType;
+import com.danielptuttle.pacman.model.characters.Pacman;
 import com.danielptuttle.pacman.model.map.MapContext;
+import javafx.scene.image.Image;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class MapGeneratorTest {
+import java.util.List;
+import java.util.Map;
+
+public class MapUtilsTest {
 
     @Test
     public void testCreateWallUnit () {
@@ -15,9 +23,9 @@ public class MapGeneratorTest {
 
         char[][] result = MapContext.getInstance().getMap();
 
-        MapGenerator.createWallUnit(startX, startY, result);
+        MapUtils.createWallUnit(startX, startY, result);
 
-        printArray(result);
+//        printArray(result);
 
         Assertions.assertEquals('w', result[200][200]);
         Assertions.assertEquals('w', result[212][212]);
@@ -34,7 +42,7 @@ public class MapGeneratorTest {
         char[][] map = MapContext.getInstance().getMap();
         Direction left = Direction.TOP;
 
-        MapGenerator.createLineFromPoint(startX, startY, map, left, length);
+        MapUtils.createLineFromPoint(startX, startY, map, left, length);
         Assertions.assertEquals('w', map[200][200]);
         Assertions.assertEquals('w', map[200][199]);
         Assertions.assertEquals('w', map[200][198]);
@@ -47,7 +55,7 @@ public class MapGeneratorTest {
         int length = 3;
         char[][] map = MapContext.getInstance().getMap();
         Direction left = Direction.TOP;
-        MapGenerator.createLineFromPoint(startX, startY, map, left, length);
+        MapUtils.createLineFromPoint(startX, startY, map, left, length);
 
         Assertions.assertEquals('w', map[125][200]);
         Assertions.assertEquals('w', map[125][224]);
@@ -60,9 +68,9 @@ public class MapGeneratorTest {
         int length = 3;
         char[][] map = MapContext.getInstance().getMap();
         Direction right = Direction.RIGHT;
-        MapGenerator.createLineFromPoint(startX, startY, map, right, length);
+        MapUtils.createLineFromPoint(startX, startY, map, right, length);
 
-        printArray(map);
+//        printArray(map);
 
         Assertions.assertEquals('w', map[200][225]);
         Assertions.assertEquals('w', map[224][274]);
@@ -75,7 +83,7 @@ public class MapGeneratorTest {
         int length = 3;
         char[][] map = MapContext.getInstance().getMap();
         Direction left = Direction.BOTTOM;
-        MapGenerator.createLineFromPoint(startX, startY, map, left, length);
+        MapUtils.createLineFromPoint(startX, startY, map, left, length);
 
 
 
@@ -92,12 +100,30 @@ public class MapGeneratorTest {
         int length = 3;
         char[][] map = MapContext.getInstance().getMap();
         Direction left = Direction.LEFT;
-        MapGenerator.createLineFromPoint(startX, startY, map, left, length);
+        MapUtils.createLineFromPoint(startX, startY, map, left, length);
 
         Assertions.assertEquals('w', map[200][200]);
         Assertions.assertEquals('w', map[224][200]);
         Assertions.assertEquals('w', map[200][126]);
         Assertions.assertEquals('w', map[224][126]);
+    }
+
+    //TODO: Implement this test with the corresponding function.
+    @Test
+    public void testClean() {
+        Map<GuyType, List<? extends Guy>> guys = GameCharacters.get();
+        Guy guy = (Guy) guys.get(GuyType.PACMAN);
+        char[][] map = MapContext.getInstance().getMap();
+
+        guy.setPosition(100,100, map);
+        //Moves the guy down.
+        guy.setPosition(guy.getPositionX(),guy.getPositionY() + guy.getSpeed(), map);
+
+        MapUtils.clean(map, guy);
+
+
+
+
     }
 
 
