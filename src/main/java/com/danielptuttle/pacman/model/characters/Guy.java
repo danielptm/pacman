@@ -50,7 +50,6 @@ public abstract class Guy {
 
         this.imageWidth = width;
         this.imageHeight = height;
-
     }
 
     public void setPosition(int positionX, int positionY, char[][] map) {
@@ -226,10 +225,3 @@ public abstract class Guy {
     }
 }
 
-enum GuyDirection{
-    UP,
-    RIGHT,
-    DOWN,
-    LEFT,
-    STILL
-}

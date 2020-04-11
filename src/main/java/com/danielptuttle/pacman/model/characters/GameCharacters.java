@@ -152,6 +152,10 @@ public class GameCharacters {
         return wsRemoved;
     }
 
+    /**
+     * The list includes
+     * @return
+     */
     public static Map<GuyType, List<? extends Guy>> get() {
         if (guyMap == null) {
             try {

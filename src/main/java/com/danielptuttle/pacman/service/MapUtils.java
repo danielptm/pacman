@@ -2,6 +2,7 @@ package com.danielptuttle.pacman.service;
 
 import com.danielptuttle.pacman.model.barrier.WallRoot;
 import com.danielptuttle.pacman.model.characters.Guy;
+import com.danielptuttle.pacman.model.characters.GuyDirection;
 
 import java.util.Arrays;
 
@@ -116,9 +117,41 @@ public class MapUtils {
      * @param guy
      */
     public static int[] clean(char[][] map, Guy guy) {
+        //Depth of the cleaning.
+        int depth = 10;
+        int currentStateWidth = (int) guy.getCurrentState().getWidth();
+        int currentStateHeight = (int) guy.getCurrentState().getHeight();
 
-        return null;
+        int[] rectangle = new int[4];
+        GuyDirection direction = guy.getGuyDirection();
+        switch (direction) {
+            case UP:
+                rectangle[0] = guy.getPositionX();
+                rectangle[1] = guy.getPositionY() - 10;
+                rectangle[2] = currentStateWidth;
+                rectangle[3] = depth;
+                break;
+            case RIGHT:
+                rectangle[0] = guy.getPositionX() - 10;
+                rectangle[1] = guy.getPositionY();
+                rectangle[2] = depth;
+                rectangle[3] = currentStateHeight;
+                break;
+            case DOWN:
+                rectangle[0] = guy.getPositionX();
+                rectangle[1] = guy.getPositionY() + 10;
+                rectangle[2] = depth;
+                rectangle[3] = currentStateHeight;
+                break;
+            case LEFT:
+                rectangle[0] = guy.getPositionX() + 10;
+                rectangle[1] = guy.getPositionY();
+                rectangle[2] = depth;
+                rectangle[3] = currentStateHeight;
+                break;
+
+        }
+        return rectangle;
     }
-
 }
 
