@@ -6,6 +6,7 @@ import com.danielptuttle.pacman.model.characters.Guy;
 import com.danielptuttle.pacman.model.characters.GuyType;
 import com.danielptuttle.pacman.model.characters.Pacman;
 import com.danielptuttle.pacman.model.map.MapContext;
+import com.danielptuttle.pacman.service.Direction;
 import com.danielptuttle.pacman.service.MapUtils;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
@@ -51,7 +52,33 @@ public class PacmanTimer extends AnimationTimer {
     }
 
     void createClassicMap() {
-        MapUtils.createElongatedBox(150, 150, 2, mapContext.getMap());
+        MapUtils.createElongatedBox(50, 50, 3, mapContext.getMap());
+        MapUtils.createElongatedBox(200, 50, 3, mapContext.getMap());
+        MapUtils.createLineFromPoint(400, 0, mapContext.getMap(), Direction.BOTTOM, 3);
+        MapUtils.createLineFromPoint(375, 0, mapContext.getMap(), Direction.BOTTOM, 3);
+        MapUtils.createLineFromPoint(425, 0, mapContext.getMap(), Direction.BOTTOM, 3);
+        MapUtils.createElongatedBox(500, 50, 3, mapContext.getMap());
+        MapUtils.createElongatedBox(650, 50, 3, mapContext.getMap());
+
+        MapUtils.createLineFromPoint(350, 400, mapContext.getMap(), Direction.TOP, 3);
+        MapUtils.createLineFromPoint(350, 400, mapContext.getMap(), Direction.RIGHT, 4);
+        MapUtils.createLineFromPoint(450, 400, mapContext.getMap(), Direction.TOP, 3);
+
+        MapUtils.createElongatedBox(50, 700, 3, mapContext.getMap());
+        MapUtils.createElongatedBox(200, 700, 3, mapContext.getMap());
+        MapUtils.createLineFromPoint(400, 775, mapContext.getMap(), Direction.TOP, 3);
+        MapUtils.createLineFromPoint(375, 775, mapContext.getMap(), Direction.TOP, 3);
+        MapUtils.createLineFromPoint(425, 775, mapContext.getMap(), Direction.TOP, 3);
+        MapUtils.createElongatedBox(500, 700, 3, mapContext.getMap());
+        MapUtils.createElongatedBox(650, 700, 3, mapContext.getMap());
+
+        MapUtils.createPlus(400, 200, mapContext.getMap(),2);
+        MapUtils.createPlus(400, 550, mapContext.getMap(), 3);
+
+        MapUtils.createLineFromPoint(725, 625, mapContext.getMap(), Direction.RIGHT, 2);
+        MapUtils.createLineFromPoint(725, 150, mapContext.getMap(), Direction.RIGHT, 2);
+        MapUtils.createLineFromPoint(0, 625, mapContext.getMap(), Direction.RIGHT, 2);
+        MapUtils.createLineFromPoint(0, 150, mapContext.getMap(), Direction.RIGHT, 2);
 
 
 //

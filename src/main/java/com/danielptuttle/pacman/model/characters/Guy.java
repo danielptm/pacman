@@ -150,7 +150,7 @@ public abstract class Guy {
 
     public boolean objectIsRight(char[][] map) {
         for (int i = this.currentPositionY; i < this.currentPositionY + this.imageHeight; i++) {
-            int detectSpot = this.currentPositionX + this.imageWidth + 2;
+            int detectSpot = this.currentPositionX + this.imageWidth + 3;
             int boundry = MapContext.getInstance().getWidth() - 1;
             if (detectSpot >= boundry || map[i][detectSpot] == 'w') {
                 return true;

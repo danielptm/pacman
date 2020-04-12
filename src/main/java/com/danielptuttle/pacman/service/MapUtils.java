@@ -10,11 +10,11 @@ import java.util.Arrays;
 
 public class MapUtils {
 
-    public static void createPlus(int middleX, int middleY, char[][] map) {
-        createLineFromPoint(middleX, middleY, map, Direction.TOP, 3);
-        createLineFromPoint(middleX, middleY, map, Direction.RIGHT, 3);
-        createLineFromPoint(middleX, middleY, map, Direction.LEFT, 3);
-        createLineFromPoint(middleX, middleY, map, Direction.BOTTOM, 3);
+    public static void createPlus(int middleX, int middleY, char[][] map, int length) {
+        createLineFromPoint(middleX, middleY, map, Direction.TOP, length);
+        createLineFromPoint(middleX, middleY, map, Direction.RIGHT, length);
+        createLineFromPoint(middleX, middleY, map, Direction.LEFT, length);
+        createLineFromPoint(middleX, middleY, map, Direction.BOTTOM, length);
     }
 
     public static void createRightLShape(int middleX, int middleY, char[][] map) {
@@ -80,11 +80,7 @@ public class MapUtils {
     }
 
     public static void createLineFromPoint(int startX, int startY, char[][] map, Direction direction, int length) {
-
-        boolean unitExists = hasWallUnit(startX, startY, map);
-        if (!unitExists) {
-            createWallUnit(startX, startY, map);
-        }
+        createWallUnit(startX, startY, map);
         switch(direction) {
             case TOP:
                 for (int i = 1; i <= length; i++) {
