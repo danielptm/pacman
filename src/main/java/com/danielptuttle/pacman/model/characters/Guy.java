@@ -1,5 +1,6 @@
 package com.danielptuttle.pacman.model.characters;
 
+import com.danielptuttle.pacman.model.map.MapContext;
 import com.danielptuttle.pacman.service.Direction;
 import javafx.scene.image.Image;
 
@@ -135,29 +136,6 @@ public abstract class Guy {
         return currentState;
     }
 
-//    public GuyDirection getDirection() {
-//        GuyDirection direction = GuyDirection.STILL;
-//        if (this.getPositionX() == this.getPreviousX()) {
-//            if (this.getPositionY() > this.getPreviousY()) {
-//                direction = GuyDirection.DOWN;
-//            } else if (this.getPositionY() < this.getPreviousY()) {
-//                direction = GuyDirection.UP;
-//            } else {
-//                direction = GuyDirection.STILL;
-//            }
-//        }
-//        if (this.getPositionY() == this.getPreviousY()) {
-//            if (this.getPositionX() > this.getPreviousX()) {
-//                direction = GuyDirection.RIGHT;
-//            } else if (this.getPositionX() < this.getPreviousX()) {
-//                direction = GuyDirection.LEFT;
-//            } else {
-//                direction = GuyDirection.STILL;
-//            }
-//        }
-//        return direction;
-//    }
-
     //TODO: Fix the unit tests for these functions, because they are messed up.
     public boolean objectIsUp(char[][] map) {
         for (int i = this.currentPositionX; i < this.currentPositionX + this.imageWidth; i++) {
@@ -170,7 +148,9 @@ public abstract class Guy {
 
     public boolean objectIsRight(char[][] map) {
         for (int i = this.currentPositionY; i < this.currentPositionY + this.imageHeight; i++) {
-            if (map[i][this.currentPositionX + this.imageWidth] == 'w') {
+            int detectSpot = this.currentPositionX + this.imageWidth + 2;
+            int boundry = MapContext.getInstance().getWidth() - 1;
+            if (detectSpot >= boundry || map[i][detectSpot] == 'w') {
                 return true;
             }
         }
@@ -179,7 +159,9 @@ public abstract class Guy {
 
     public boolean objectIsDown(char[][] map) {
         for (int i = this.currentPositionX; i < this.currentPositionX + this.imageWidth; i++) {
-            if (map[this.currentPositionY + this.imageHeight][i] == 'w') {
+            int detectSpot = this.currentPositionY + this.imageHeight + 1;
+            int boundry = MapContext.getInstance().getHeight() - 1;
+            if (detectSpot >= boundry || map[detectSpot][i] == 'w') {
                 return true;
             }
         }

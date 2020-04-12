@@ -74,7 +74,11 @@ public class PacmanTimer extends AnimationTimer {
         Pacman pacman = (Pacman) guyMap.get(GuyType.PACMAN).get(0);
         Image currentState = pacman.getCurrentState();
 
-        this.gc.clearRect(pacman.getPreviousX(), pacman.getPreviousY(), pacman.getImageWidth(), pacman.getImageHeight());
+        MapUtils.clean(this.gc, mapContext, pacman);
+
+//        this.gc.clearRect(cleanSpace[0], cleanSpace[1], cleanSpace[2], cleanSpace[3]);
+
+        this.gc.drawImage(currentState, pacman.getPositionX(), pacman.getPositionY());
 
         Ghost ghost0 = (Ghost) guyMap.get(GuyType.GHOST).get(0);
         Ghost ghost1 = (Ghost) guyMap.get(GuyType.GHOST).get(1);
@@ -83,6 +87,5 @@ public class PacmanTimer extends AnimationTimer {
         Ghost ghost4 = (Ghost) guyMap.get(GuyType.GHOST).get(4);
         Ghost ghost5 = (Ghost) guyMap.get(GuyType.GHOST).get(5);
 
-        this.gc.drawImage(pacman.getCurrentState(), pacman.getPositionX(), pacman.getPositionY());
     }
 }

@@ -3,6 +3,8 @@ package com.danielptuttle.pacman.service;
 import com.danielptuttle.pacman.model.barrier.WallRoot;
 import com.danielptuttle.pacman.model.characters.Guy;
 import com.danielptuttle.pacman.model.characters.GuyDirection;
+import com.danielptuttle.pacman.model.map.MapContext;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.util.Arrays;
 
@@ -108,50 +110,26 @@ public class MapUtils {
     }
 
     /**
-     * Takes a Guy and the map and returns int[]. The int[] has a lenth of 4 and describes a rectangle
-     * where the guy has been. This int[] can be used by the clearRect() function of the
-     * GraphicsContext.
-     * The int[] has a length of 4.
-     * int[0]
-     * @param map
+     * Cleans the graphics context in an area 5 pixels in every direction of pacman as long as the pixel is not a 'w'
+     *
      * @param guy
      */
-    public static int[] clean(char[][] map, Guy guy) {
-        //Depth of the cleaning.
-        int depth = 10;
-        int currentStateWidth = (int) guy.getCurrentState().getWidth();
-        int currentStateHeight = (int) guy.getCurrentState().getHeight();
+    public static void clean(GraphicsContext gc, MapContext mapContext, Guy guy) {
+        int startY = guy.getPositionY() - 5;
+        int startX = guy.getPositionX() - 5;
 
-        int[] rectangle = new int[4];
-        GuyDirection direction = guy.getGuyDirection();
-        switch (direction) {
-            case UP:
-                rectangle[0] = guy.getPositionX();
-                rectangle[1] = guy.getPositionY() - 10;
-                rectangle[2] = currentStateWidth;
-                rectangle[3] = depth;
-                break;
-            case RIGHT:
-                rectangle[0] = guy.getPositionX() - 10;
-                rectangle[1] = guy.getPositionY();
-                rectangle[2] = depth;
-                rectangle[3] = currentStateHeight;
-                break;
-            case DOWN:
-                rectangle[0] = guy.getPositionX();
-                rectangle[1] = guy.getPositionY() + 10;
-                rectangle[2] = depth;
-                rectangle[3] = currentStateHeight;
-                break;
-            case LEFT:
-                rectangle[0] = guy.getPositionX() + 10;
-                rectangle[1] = guy.getPositionY();
-                rectangle[2] = depth;
-                rectangle[3] = currentStateHeight;
-                break;
+        int maxY = startY + guy.getImageHeight() + 10;
+        int maxX = startX + guy.getImageWidth() + 10;
 
+        for (int y = startY; y < maxY; y++) {
+            for (int x = startX; x < maxX; x++) {
+                if (x < mapContext.getWidth() - 1 && y < mapContext.getHeight() - 1) {
+                    if (mapContext.getMap()[y][x] != 'w') {
+                        gc.clearRect(x, y, 1, 1);
+                    }
+                }
+            }
         }
-        return rectangle;
     }
 }
 

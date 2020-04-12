@@ -74,7 +74,7 @@ public class GameCharacters {
             Image pacmanFx = SwingFXUtils.toFXImage(removedWsPac, null);
             pacmanImages[i] = pacmanFx;
         }
-        Pacman pacman = new Pacman(pacmanImages, 10, 10);
+        Pacman pacman = new Pacman(pacmanImages, 30, 30);
         pacmanList.add(pacman);
         guyMap.put(GuyType.PACMAN, pacmanList);
         return guyMap;
