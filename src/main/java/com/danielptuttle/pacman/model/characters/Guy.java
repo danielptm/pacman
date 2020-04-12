@@ -139,7 +139,9 @@ public abstract class Guy {
     //TODO: Fix the unit tests for these functions, because they are messed up.
     public boolean objectIsUp(char[][] map) {
         for (int i = this.currentPositionX; i < this.currentPositionX + this.imageWidth; i++) {
-            if (map[this.currentPositionY - 1][i] == 'w') {
+            int detectSpot = this.currentPositionY - 1;
+            int boundry = MapContext.getInstance().getHeight();
+            if (detectSpot >= boundry || map[detectSpot][i] == 'w') {
                 return true;
             }
         }
@@ -170,7 +172,9 @@ public abstract class Guy {
 
     public boolean objectIsLeft(char[][] map) {
         for (int i = this.currentPositionY; i < this.currentPositionY + this.imageHeight; i++) {
-            if (map[i][this.currentPositionX - 1] == 'w') {
+            int detectSpot = this.currentPositionX - 1;
+            int boundry = 0;
+            if (detectSpot <= boundry || map[i][detectSpot] == 'w') {
                 return true;
             }
         }
